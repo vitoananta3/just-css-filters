@@ -2,10 +2,10 @@
 
 import { useState } from "react"
 import Image from "next/image"
-import { Slider } from "@/components/ui/slider"
+// import { Slider } from "@/components/ui/slider"
 import { Button } from "@/components/ui/button"
-import { Label } from "@/components/ui/label"
-import { Textarea } from "@/components/ui/textarea"
+// import { Label } from "@/components/ui/label"
+// import { Textarea } from "@/components/ui/textarea"
 
 export default function Home() {
   const [imageUrl, setImageUrl] = useState("/image-preview.webp")
@@ -102,28 +102,28 @@ export default function Home() {
   )
 }
 
-interface FilterSliderProps {
-  label: string
-  value: number
-  onChange: (value: number) => void
-  min: number
-  max: number
-  step?: number
-  unit: string
-}
+// interface FilterSliderProps {
+//   label: string
+//   value: number
+//   onChange: (value: number) => void
+//   min: number
+//   max: number
+//   step?: number
+//   unit: string
+// }
 
-function FilterSlider({ label, value, onChange, min, max, step = 1, unit }: FilterSliderProps) {
-  return (
-    <div className="space-y-2">
-      <div className="flex justify-between">
-        <Label>{label}</Label>
-        <span className="text-sm font-semibold">
-          {value.toFixed(step < 1 ? 1 : 0)}
-          {unit}
-        </span>
-      </div>
-      <Slider value={[value]} onValueChange={([newValue]) => onChange(newValue)} min={min} max={max} step={step} />
-    </div>
-  )
-}
+// function FilterSlider({ label, value, onChange, min, max, step = 1, unit }: FilterSliderProps) {
+//   return (
+//     <div className="space-y-2">
+//       <div className="flex justify-between">
+//         <Label>{label}</Label>
+//         <span className="text-sm font-semibold">
+//           {value.toFixed(step < 1 ? 1 : 0)}
+//           {unit}
+//         </span>
+//       </div>
+//       <Slider value={[value]} onValueChange={([newValue]) => onChange(newValue)} min={min} max={max} step={step} />
+//     </div>
+//   )
+// }
 
