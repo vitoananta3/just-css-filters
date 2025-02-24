@@ -5,7 +5,7 @@ import Image from "next/image"
 import { Slider } from "@/components/ui/slider"
 import { Button } from "@/components/ui/button"
 import { Label } from "@/components/ui/label"
-// import { Textarea } from "@/components/ui/textarea"
+import { Textarea } from "@/components/ui/textarea"
 
 export default function Home() {
   const [imageUrl, setImageUrl] = useState("/image-preview.webp")
@@ -73,6 +73,20 @@ export default function Home() {
     WebkitFilter: filterValue,
     MozFilter: filterValue,
     filter: filterValue,
+  }
+
+  const [isCopied, setIsCopied] = useState(false)
+
+  const cssCode = `filter: ${filterValue}; 
+-webkit-filter: ${filterValue}; 
+-moz-filter: ${filterValue};`
+
+  const copyToClipboard = () => {
+    navigator.clipboard.writeText(cssCode)
+    setIsCopied(true)
+    setTimeout(() => {
+      setIsCopied(false)
+    }, 2100)
   }
 
   return (
@@ -192,6 +206,17 @@ export default function Home() {
         </div>
         <div className="">
           <h2 className="text-lg font-semibold mb-2">CSS Code</h2>
+          <div className="relative">
+            <Textarea
+              value={cssCode}
+              readOnly
+              className="w-full pr-24 font-mono text-sm resize-none"
+              rows={3}
+            />
+            <Button onClick={copyToClipboard} className="absolute right-1 top-1" size="sm">
+            {isCopied ? "Copied!" : "Copy"}
+            </Button>
+          </div>
         </div>
       </div>
     </div>
