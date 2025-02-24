@@ -2,9 +2,9 @@
 
 import { useState } from "react"
 import Image from "next/image"
-// import { Slider } from "@/components/ui/slider"
+import { Slider } from "@/components/ui/slider"
 import { Button } from "@/components/ui/button"
-// import { Label } from "@/components/ui/label"
+import { Label } from "@/components/ui/label"
 // import { Textarea } from "@/components/ui/textarea"
 
 export default function Home() {
@@ -37,7 +37,7 @@ export default function Home() {
       canvas.height = img.height
       const ctx = canvas.getContext('2d')
       if (ctx) {
-        // ctx.filter = filterValue
+        ctx.filter = filterValue
         ctx.drawImage(img, 0, 0)
         link.download = 'filtered-image.png'
         link.href = canvas.toDataURL('image/png')
@@ -51,6 +51,30 @@ export default function Home() {
     }, 3400)
   }
 
+  const [filters, setFilters] = useState({
+    blur: 0,
+    brightness: 100,
+    contrast: 100,
+    grayscale: 0,
+    hueRotate: 0,
+    invert: 0,
+    opacity: 100,
+    saturate: 100,
+    sepia: 0,
+  })
+
+  const handleFilterChange = (filter: string, value: number) => {
+    setFilters((prev) => ({ ...prev, [filter]: value }))
+  }
+
+  const filterValue = `blur(${filters.blur}px) brightness(${filters.brightness}%) contrast(${filters.contrast}%) grayscale(${filters.grayscale}%) hue-rotate(${filters.hueRotate}deg) invert(${filters.invert}%) opacity(${filters.opacity}%) saturate(${filters.saturate}%) sepia(${filters.sepia}%)`
+
+  const filterStyle = {
+    WebkitFilter: filterValue,
+    MozFilter: filterValue,
+    filter: filterValue,
+  }
+
   return (
     <div className="container mx-auto p-4 max-w-7xl min-h-screen flex flex-col justify-center gap-16 -translate-y-8">
       <h1 className="text-2xl font-bold mb-4 text-center">just css filters</h1>
@@ -59,7 +83,79 @@ export default function Home() {
           <div className="space-y-4">
             <div className="text-lg font-semibold">Filters Configurator</div>
             <div className="border rounded-lg p-4 space-y-4">
-              {/* filters here */}
+            <FilterSlider
+                label="Blur"
+                value={filters.blur}
+                onChange={(value) => handleFilterChange("blur", value)}
+                min={0}
+                max={20}
+                step={0.1}
+                unit="px"
+              />
+              <FilterSlider
+                label="Brightness"
+                value={filters.brightness}
+                onChange={(value) => handleFilterChange("brightness", value)}
+                min={0}
+                max={200}
+                unit="%"
+              />
+              <FilterSlider
+                label="Contrast"
+                value={filters.contrast}
+                onChange={(value) => handleFilterChange("contrast", value)}
+                min={0}
+                max={200}
+                unit="%"
+              />
+              <FilterSlider
+                label="Grayscale"
+                value={filters.grayscale}
+                onChange={(value) => handleFilterChange("grayscale", value)}
+                min={0}
+                max={100}
+                unit="%"
+              />
+              <FilterSlider
+                label="Hue Rotate"
+                value={filters.hueRotate}
+                onChange={(value) => handleFilterChange("hueRotate", value)}
+                min={0}
+                max={360}
+                unit="deg"
+              />
+              <FilterSlider
+                label="Invert"
+                value={filters.invert}
+                onChange={(value) => handleFilterChange("invert", value)}
+                min={0}
+                max={100}
+                unit="%"
+              />
+              <FilterSlider
+                label="Opacity"
+                value={filters.opacity}
+                onChange={(value) => handleFilterChange("opacity", value)}
+                min={0}
+                max={100}
+                unit="%"
+              />
+              <FilterSlider
+                label="Saturate"
+                value={filters.saturate}
+                onChange={(value) => handleFilterChange("saturate", value)}
+                min={0}
+                max={200}
+                unit="%"
+              />
+              <FilterSlider
+                label="Sepia"
+                value={filters.sepia}
+                onChange={(value) => handleFilterChange("sepia", value)}
+                min={0}
+                max={100}
+                unit="%"
+              />
             </div>
           </div>
           <div>
@@ -71,7 +167,7 @@ export default function Home() {
                     src={imageUrl}
                     alt="Preview"
                     fill
-                    // style={filterStyle}
+                    style={filterStyle}
                     className="object-contain rounded-lg"
                   />
                 </div>
@@ -102,28 +198,28 @@ export default function Home() {
   )
 }
 
-// interface FilterSliderProps {
-//   label: string
-//   value: number
-//   onChange: (value: number) => void
-//   min: number
-//   max: number
-//   step?: number
-//   unit: string
-// }
+interface FilterSliderProps {
+  label: string
+  value: number
+  onChange: (value: number) => void
+  min: number
+  max: number
+  step?: number
+  unit: string
+}
 
-// function FilterSlider({ label, value, onChange, min, max, step = 1, unit }: FilterSliderProps) {
-//   return (
-//     <div className="space-y-2">
-//       <div className="flex justify-between">
-//         <Label>{label}</Label>
-//         <span className="text-sm font-semibold">
-//           {value.toFixed(step < 1 ? 1 : 0)}
-//           {unit}
-//         </span>
-//       </div>
-//       <Slider value={[value]} onValueChange={([newValue]) => onChange(newValue)} min={min} max={max} step={step} />
-//     </div>
-//   )
-// }
+function FilterSlider({ label, value, onChange, min, max, step = 1, unit }: FilterSliderProps) {
+  return (
+    <div className="space-y-2">
+      <div className="flex justify-between">
+        <Label>{label}</Label>
+        <span className="text-sm font-semibold">
+          {value.toFixed(step < 1 ? 1 : 0)}
+          {unit}
+        </span>
+      </div>
+      <Slider value={[value]} onValueChange={([newValue]) => onChange(newValue)} min={min} max={max} step={step} />
+    </div>
+  )
+}
 
