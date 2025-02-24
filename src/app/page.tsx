@@ -90,13 +90,13 @@ export default function Home() {
   }
 
   return (
-    <div className="container mx-auto p-4 max-w-7xl min-h-screen flex flex-col justify-center gap-16 -translate-y-8">
-      <h1 className="text-2xl font-bold mb-4 text-center">just css filters</h1>
+    <div className="container mx-auto p-4 max-w-7xl min-h-screen flex flex-col justify-center gap-16 sm:-translate-y-8 md:translate-y-0">
+      <h1 className="text-3xl font-bold mb-4 text-center">just css filters</h1>
       <div className="space-y-16">
         <div className="grid grid-cols-1 md:grid-cols-2 gap-16">
           <div className="space-y-4">
-            <div className="text-lg font-semibold">Filters Configurator</div>
-            <div className="border rounded-lg p-4 space-y-4">
+            <div className="text-lg font-medium">Filters Configurator</div>
+            <div className="border rounded-lg px-8 py-6 space-y-4">
             <FilterSlider
                 label="Blur"
                 value={filters.blur}
@@ -174,8 +174,8 @@ export default function Home() {
           </div>
           <div>
             <div className="space-y-8">
-              <h2 className="text-lg font-semibold mb-2">Image Preview</h2>
-              <div className="border rounded-lg p-4">
+              <h2 className="text-lg font-medium mb-2">Image Preview</h2>
+              <div className="border rounded-lg p-8">
                 <div className="relative w-full aspect-video">
                   <Image
                     src={imageUrl}
@@ -205,7 +205,7 @@ export default function Home() {
           </div>
         </div>
         <div className="">
-          <h2 className="text-lg font-semibold mb-2">CSS Code</h2>
+          <h2 className="text-lg font-medium mb-2">CSS Code</h2>
           <div className="relative">
             <Textarea
               value={cssCode}
